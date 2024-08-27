@@ -31,6 +31,6 @@ def writeSubnets(subnets, file_path):
         for subnet in subnets:
             file.write(subnet + '\n')
 
-subnets = readSubnets(input_file)
+subnets = readSubnets(inputFile)
 uniqueSubnets = checkSubnets(subnets)
-writeSubnets(uniqueSubnets, output_file)
+writeSubnets(uniqueSubnets, outputFile)
