@@ -8,10 +8,14 @@ def checkSubnets(subnet_list):
     for subnet in subnet_list:
         if "/" not in subnet:
             subnet = subnet + "/32"
-            newSubnets.append(subnet)
-        else:
-            newSubnets.append(subnet)
-    subnets = [ipaddress.ip_network(subnet) for subnet in subnet_list]
+        try:
+            network = ipaddress.ip_network(subnet, strict=True)
+        except ValueError:
+            network = ipaddress.ip_network(subnet, strict=False)
+        
+        newSubnets.append(str(network))
+
+    subnets = [ipaddress.ip_network(subnet, strict=False) for subnet in newSubnets]
     subnets.sort(key=lambda x: (x.prefixlen, x.network_address))
     
     result = []
