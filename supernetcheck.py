@@ -5,7 +5,7 @@ outputFile = 'output_subnets.txt'
 
 def checkSubnets(subnet_list):
     newSubnets = []
-    for subnet in subnets:
+    for subnet in subnet_list:
         if "/" not in subnet:
             subnet = subnet + "/32"
             newSubnets.append(subnet)
