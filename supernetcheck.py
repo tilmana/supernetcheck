@@ -1,6 +1,16 @@
 import ipaddress
 
+inputFile = 'input_subnets.txt'
+outputFile = 'output_subnets.txt'
+
 def checkSubnets(subnet_list):
+    newSubnets = []
+    for subnet in subnets:
+        if "/" not in subnet:
+            subnet = subnet + "/32"
+            newSubnets.append(subnet)
+        else:
+            newSubnets.append(subnet)
     subnets = [ipaddress.ip_network(subnet) for subnet in subnet_list]
     subnets.sort(key=lambda x: (x.prefixlen, x.network_address))
     
@@ -21,9 +31,6 @@ def writeSubnets(subnets, file_path):
         for subnet in subnets:
             file.write(subnet + '\n')
 
-input_file = 'input_subnets.txt'
-output_file = 'output_subnets.txt'
-
 subnets = readSubnets(input_file)
-deduplicated_subnets = checkSubnets(subnets)
-writeSubnets(deduplicated_subnets, output_file)
+uniqueSubnets = checkSubnets(subnets)
+writeSubnets(uniqueSubnets, output_file)
